@@ -1,0 +1,106 @@
+---
+title: "EDA"
+author: "Alok K. Shukla"
+date: "4/22/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+depression$Gender = replace(depression$Gender,depression$Gender==1,'Female')
+depression$Gender = replace(depression$Gender,depression$Gender==2,'Male')
+colnames(depression)
+```
+```{r}
+t=table(friends$Friends)
+percent=prop.table(t)*100
+pf = round(percent,1)
+lbl = paste(c("No difference ","Opposite sex ","Same sex "),pf,"%",sep="")
+pie(t,label=lbl)
+
+```
+
+```{r}
+hist(actor_age$Age, breaks=8, xlab="Age of Best Actor Oscar Winners (1970-2013)", main="")
+```
+
+```{r}
+summary(actor_age$Age)
+length(actor_age$Age)
+min(actor_age$Age)
+max(actor_age$Age)
+mean(actor_age$Age)
+sd(actor_age$Age)
+var(actor_age$Age)
+median(actor_age$Age)
+quantile(actor_age$Age,0.25)
+quantile(actor_age$Age,0.75)
+IQR(actor_age$Age)
+range(actor_age$Age)
+```
+
+```{r}
+summary(grad_data)
+#boxplot(grad_data, horizontal=TRUE, ylab="Colleges",xlab ="Graduation Rates", main="Comparison of Graduation Rates")
+boxplot(grad_data, xlab="Colleges",ylab ="Graduation Rates", main="Comparison of Graduation Rates")
+```
+
+```{r}
+sapply(ratings, sd)
+```
+```{r}
+hist(data$Alcohol)
+summary(data$Alcohol)
+```
+```{r}
+(tbl = table(data$Cheat))
+100*tbl/sum(tbl)
+pie(tbl)
+```
+```{r}
+t = table(nightlight)
+tt = table(nightlight$Light,nightlight$Nearsightedness)
+prop.table(t,1)*100
+prop.table(t,2)*100
+```
+
+```{r}
+plot(h$height,h$weight, xlab="Height (inches)", ylab="Weight(lbs)",col="blue")
+points(h$height[h$gender==1],h$weight[h$gender==1],col="red")
+legend(55,225, pch=1, col=c("red","blue"),legend=c("females","males"))
+```
+
+```{r}
+plot(a$longevity,a$gestation,xlab="Average Longevity of Species (years)", ylab="Average Gestation Period of Species (days)")
+cor(a$longevity,a$gestation)
+cor(a$longevity[a$animal!="elephant"],a$gestation[a$animal!="elephant"])
+```
+
+```{r}
+model = lm(olym$Time~olym$Year)
+plot(olym$Year, olym$Time, xlab="Year of Olympic Games",ylab="Winning Time of 1500m Race (secs)")
+abline(model)
+coef(model)
+```
+```{r}
+plot(olym$Year[olym$Year!=1896], olym$Time[olym$Year!=1896]) 
+L = lm(olym$Time[olym$Year!=1896]~olym$Year[olym$Year!=1896]); 
+abline(L);
+cf=coefficients(L);
+legend(1950,240,legend=paste("time = ",round(cf[1],0),round(cf[2],2),"year"))
+```
+
+
+
+
+
+
+
+
+
+
+
